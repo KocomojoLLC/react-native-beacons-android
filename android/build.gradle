@@ -1,3 +1,32 @@
+apply plugin: "maven"
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.0'   
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter() 
+        
+        maven { 
+            url 'https://raw.githubusercontent.com/KocomojoLLC/KocomojoSDK-Android/master'
+            credentials {
+                username "$mavenUser"
+                password "$mavenPassword"
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
+}
+
 apply plugin: 'com.android.library'
 
 android {
@@ -14,6 +43,18 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.facebook.react:react-native:0.12.+'
+    compile 'com.facebook.react:react-native:0.34.1'
     compile 'org.altbeacon:android-beacon-library:2.6'
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        def deployPath = file(getProperty('aar.deployPath'))
+        repository(url: "file://${deployPath.absolutePath}")
+        pom.project {
+            groupId 'com.mmazzarolo'
+            artifactId 'react-native-beacons-android'
+            version "2.1.0"
+        }
+    }
 }
