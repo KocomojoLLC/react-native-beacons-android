@@ -55,11 +55,7 @@ const checkTransmissionSupported = () => new Promise((resolve, reject) => {
 })
 
 const startMonitoringForRegion = (region) => new Promise((resolve, reject) => {
-  if(region.minor && region.major) {
-    beaconsAndroid.startMonitoring(region.identifier, region.uuid, region.minor, region.major, resolve, reject)
-  } else {
-    beaconsAndroid.startMonitoring(region.identifier, region.uuid, resolve, reject)
-  }
+  beaconsAndroid.startMonitoring(region.identifier, region.uuid, region.minor, region.ajor, resolve, reject)
 })
 
 const startRangingBeaconsInRegion = (regionId, beaconsUUID) => new Promise((resolve, reject) => {
