@@ -171,6 +171,19 @@ public class BeaconsAndroidModule extends ReactContextBaseJavaModule implements 
         }
     }
 
+    @ReactMethod
+    public void startMonitoring(String regionId, String beaconUuid, Callback resolve, Callback reject) {
+        Log.d(LOG_TAG, "startMonitoring, monitoringRegionId: " + regionId + ", monitoringBeaconUuid: " + beaconUuid);
+        try {
+            Region region = createRegion(regionId, beaconUuid);
+            mBeaconManager.startMonitoringBeaconsInRegion(region);
+            resolve.invoke();
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "startMonitoring, error: ", e);
+            reject.invoke(e.getMessage());
+        }        
+    }
+
     private MonitorNotifier mMonitorNotifier = new MonitorNotifier() {
         @Override
         public void didEnterRegion(Region region) {
