@@ -52,7 +52,7 @@ uploadArchives {
         def deployPath = file(getProperty('aar.deployPath'))
         repository(url: "file://${deployPath.absolutePath}")
         pom.project {
-            groupId 'com.mmazzarolo'
+            groupId 'com.mmazzarolo.beaconsandroid'
             artifactId 'react-native-beacons-android'
             version "2.1.0"
         }
